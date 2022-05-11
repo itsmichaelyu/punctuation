@@ -23,8 +23,9 @@ function App() {
 
 function findPunctuation(str) {
     let text = "";
-    if (str.match(/[…[\].,/!?'";:{}—()]/g) != null) {
-        str.match(/[…[\].,/!?'";:{}—()]/g).forEach(function(x){text += x;});
+    let reg = /[`~@#$%^&*–\\+<>|…[\].,/!?'";:{}\-—()]/g;
+    if (str.match(reg) != null) {
+        str.match(reg).forEach(function(x){text += x;});
     }
     return text;
 }
