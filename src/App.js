@@ -1,7 +1,5 @@
 import './App.css';
-import React from "react";
-
-let t = "";
+import React, {TextareaHTMLAttributes} from "react";
 
 function App() {
   return (
@@ -21,10 +19,20 @@ function App() {
   );
 }
 
+var count = new Map()
+
 function findPunctuation(str) {
     let text = "";
+    count = new Map();
     if (str.match(/[…[\].,/!?'";:{}—()]/g) != null) {
         str.match(/[…[\].,/!?'";:{}—()]/g).forEach(function(x){text += x;});
+    }
+    for(let x in text) {
+      if(count.has(text.charAt(x))) {
+        count.set(text.charAt(x), count.get(text.charAt(x))+1);
+      } else {
+        count.set(text.charAt(x), 1);
+      }
     }
     return text;
 }
@@ -34,19 +42,37 @@ class Worker extends React.Component {
         super(props);
         this.state = {value: ''};
         this.handleChange = this.handleChange.bind(this);
+        this.fileSubmit = this.fileSubmit.bind(this);
     }
 
     handleChange(event) {
         this.setState({value: event.target.value});
-        t = event.target.value;
     }
+  
+    fileSubmit(event) {
+        event.preventDefault();
+        let fr=new FileReader();
+        fr.onload=function(event){
+            document.getElementById('fileIn').textContent=event.target.result;
+            this.setState({value: event.target.result});
+            console.log(event.target.result);
+        }
+        fr.readAsText(event.target.files[0]);
+    }
+
+    // handleFileChosen = (file) => {
+    //     let fileReader = new FileReader();
+    //     fileReader.onloadend = handleFileRead(file);
+    //     fileReader.readAsText(file);
+    // };
 
     render() {
         return (
-            <header>
-                <textarea className="App-input" onresize={false} value={this.state.value} onChange={this.handleChange} />
-                <textarea className="App-output" readOnly={true} value={findPunctuation(t)} />
-            </header>
+            <p className="App">
+                <textarea className="App-input" id="textIn" value={this.state.value} onChange={this.handleChange} />
+                <textarea className="App-output" readOnly={true} value={findPunctuation(this.state.value)} />
+                <input type="file" id="fileIn" className="App-file-selector" accept=".txt,.docx,.doc,.dot,.dotx" onChange={e => this.handleFileChosen(e.target.files[0])} />
+            </p>
         );
     }
 }
