@@ -19,10 +19,19 @@ function App() {
   );
 }
 
+var count = new Map()
+
 function findPunctuation(str) {
     let text = "";
     if (str.match(/[…[\].,/!?'";:{}—()]/g) != null) {
         str.match(/[…[\].,/!?'";:{}—()]/g).forEach(function(x){text += x;});
+    }
+    for(let x in text) {
+      if(count.has(x)) {
+        count.set(x, count.get(x)+1)
+      } else {
+        count.set(x, 1)
+      }
     }
     return text;
 }
@@ -38,7 +47,7 @@ class Worker extends React.Component {
     handleChange(event) {
         this.setState({value: event.target.value});
     }
-
+  
     fileSubmit(event) {
         event.preventDefault();
         let fr=new FileReader();
