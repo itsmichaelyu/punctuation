@@ -34,7 +34,8 @@ class Worker extends React.Component {
             data: [],
             datasets: [{
                 data: [],
-                backgroundColor: ['red', 'green', 'blue', 'purple', 'yellow', 'pink', 'orange', 'violet', 'brown', 'gray', 'white', 'black', 'amber'],
+                // 13 colors
+                backgroundColor: ['red', 'green', 'blue', 'purple', 'yellow', 'pink', 'orange', 'violet', 'brown', 'gray', 'white', 'black', 'cyan'],
                 fontColor: ['white'],
                 borderWidth: 0,
             }]
