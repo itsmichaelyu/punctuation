@@ -51,9 +51,9 @@ class Worker extends React.Component {
 
     findPunctuation(str) {
         let text = "";
-        let reg = /[…[\].,/!?'";:{}\-–—()]/g;
+        let reg = /[…[\].,/!?'"“”;:{}\-–—()]/g;
         if (str.match(reg) != null) {
-            str.match(reg).forEach(function(x){text += x;});
+            str.match(reg).forEach(function(x){text += (x === "“" || x === "”") ? "\"" : x;});
         }
         return text;
     }
