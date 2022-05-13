@@ -1,5 +1,8 @@
 import './App.css';
+import 'chart.js/auto';
 import React from "react";
+import {Chart} from 'chart.js'
+import {Pie} from 'react-chartjs-2';
 
 function App() {
   return (
@@ -11,42 +14,79 @@ function App() {
             </svg>
         </a>
       <header className="App-header">
-          Punctuation Only
-          <h2><span id="space">Input</span> <span id="space">Output</span></h2>
+          <span className="App-title-text">Punctuation Only</span>
+          <h1><span id="space">Input</span><span id="space">Output</span></h1>
           <Worker></Worker>
       </header>
     </div>
   );
 }
 
-var count = new Map()
-
-function findPunctuation(str) {
-    let text = "";
-    count = new Map();
-    if (str.match(/[…[\].,/!?'";:{}—()]/g) != null) {
-        str.match(/[…[\].,/!?'";:{}—()]/g).forEach(function(x){text += x;});
-    }
-    for(let x in text) {
-      if(count.has(text.charAt(x))) {
-        count.set(text.charAt(x), count.get(text.charAt(x))+1);
-      } else {
-        count.set(text.charAt(x), 1);
-      }
-    }
-    return text;
-}
+Chart.defaults.color = "#fff";
 
 class Worker extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {value: ''};
+        this.state = {
+            original: '',
+            modified: '',
+            labels: [],
+            data: [],
+            datasets: [{
+                data: [],
+                backgroundColor: ['red', 'green', 'blue', 'purple', 'yellow', 'pink', 'orange', 'violet', 'brown', 'gray', 'white', 'black', 'amber'],
+                fontColor: ['white'],
+                borderWidth: 0,
+            }]
+        };
         this.handleChange = this.handleChange.bind(this);
         this.fileSubmit = this.fileSubmit.bind(this);
     }
 
     handleChange(event) {
-        this.setState({value: event.target.value});
+        this.setState({original: event.target.value});
+        this.setState({modified: this.findPunctuation(event.target.value)})
+        this.updateChart(this.findPunctuation(event.target.value));
+    }
+
+    findPunctuation(str) {
+        let text = "";
+        let reg = /[…[\].,/!?'";:{}\-–—()]/g;
+        if (str.match(reg) != null) {
+            str.match(reg).forEach(function(x){text += x;});
+        }
+        return text;
+    }
+
+    count(text) {
+        let count = new Map();
+        for(let x in text) {
+            if(count.has(text.charAt(x))) {
+                count.set(text.charAt(x), count.get(text.charAt(x))+1);
+            } else {
+                count.set(text.charAt(x), 1);
+            }
+        }
+        return count;
+    }
+
+    updateChart(text) {
+        let count = this.count(text);
+        // console.log(count, text);
+        let keys = [], vals = [];
+        for (const [key, value] of count) {
+            keys.push(key);
+            vals.push(value);
+        }
+        this.setState({labels: keys, data: vals, datasets: [{data: vals}]});
+    }
+
+    countPrinter(labels, data) {
+        let text = "";
+        for (let i in labels) {
+            text += labels[i] + " " + data[i] + "\n";
+        }
+        return text;
     }
   
     fileSubmit(event) {
@@ -68,11 +108,19 @@ class Worker extends React.Component {
 
     render() {
         return (
-            <p className="App">
-                <textarea className="App-input" id="textIn" value={this.state.value} onChange={this.handleChange} />
-                <textarea className="App-output" readOnly={true} value={findPunctuation(this.state.value)} />
-                <input type="file" id="fileIn" className="App-file-selector" accept=".txt,.docx,.doc,.dot,.dotx" onChange={e => this.handleFileChosen(e.target.files[0])} />
-            </p>
+            <h1>
+                <textarea className="App-input" id="textIn" value={this.state.original} onChange={this.handleChange} />
+                <textarea className="App-output" readOnly={true} value={this.state.modified} />
+                <textarea className="App-counter" readOnly={true} disabled={true} value={this.countPrinter(this.state.labels, this.state.data)} />
+                {/*<input type="file" id="fileIn" className="App-file-selector" accept=".txt,.docx,.doc,.dot,.dotx" onChange={e => this.handleFileChosen(e.target.files[0])} />*/}
+                <div className="App-pie">
+                    <Pie data={{
+                        labels: this.state.labels,
+                        datasets: this.state.datasets,
+                    }}
+                    />
+                </div>
+            </h1>
         );
     }
 }
