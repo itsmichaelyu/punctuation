@@ -43,7 +43,6 @@ class Worker extends React.Component {
             }]
         };
         this.handleChange = this.handleChange.bind(this);
-        // this.fileSubmit = this.fileSubmit.bind(this);
     }
 
     handleChange(event) {
