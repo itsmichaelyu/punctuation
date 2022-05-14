@@ -5,6 +5,8 @@
  * Released under the MIT License
  */
 
+/*! pako 2.0.4 https://github.com/nodeca/pako @license (MIT AND Zlib) */
+
 /**
  * @license React
  * react-dom.production.min.js
