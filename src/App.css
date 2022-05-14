@@ -43,21 +43,23 @@
 
 .App-counter {
   text-align: left;
-  float: left;
-  margin: 20px 0 0 4vw;
+  float: right;
+  margin: 20px 4vw 0 0;
   width: 45vw;
   height: 80vh;
   font-size: calc(6px + 2vmin);
   color: black;
 }
 
+.App-file-selector{
+  margin: 10px 0 0 50px;
+}
+
 .App-pie{
-  float: right;
-  margin: 100px 10vw 0 0;
+  float: left;
+  margin: 70px 0 0 8vw;
   height: 35vh;
   width: 35vw;
-  /*width: 100px !important;*/
-  /*height: 100px !important;*/
 }
 
 h1{

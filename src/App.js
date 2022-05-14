@@ -112,8 +112,8 @@ class Worker extends React.Component {
             <h1>
                 <textarea className="App-input" id="textIn" value={this.state.original} onChange={this.handleChange} />
                 <textarea className="App-output" readOnly={true} value={this.state.modified} />
+                <input className="App-file-selector" type="file" id="fileIn" accept=".txt,.docx,.doc,.dot,.dotx" onChange={e => this.handleFileChosen(e.target.files[0])} />
                 <textarea className="App-counter" readOnly={true} disabled={true} value={this.countPrinter(this.state.labels, this.state.data)} />
-                {/*<input type="file" id="fileIn" className="App-file-selector" accept=".txt,.docx,.doc,.dot,.dotx" onChange={e => this.handleFileChosen(e.target.files[0])} />*/}
                 <div className="App-pie">
                     <Pie data={{
                         labels: this.state.labels,
