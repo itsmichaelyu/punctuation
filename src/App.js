@@ -41,7 +41,7 @@ class Worker extends React.Component {
             }]
         };
         this.handleChange = this.handleChange.bind(this);
-        this.fileSubmit = this.fileSubmit.bind(this);
+        // this.fileSubmit = this.fileSubmit.bind(this);
     }
 
     handleChange(event) {
@@ -73,7 +73,6 @@ class Worker extends React.Component {
 
     updateChart(text) {
         let count = this.count(text);
-        // console.log(count, text);
         let keys = [], vals = [];
         for (const [key, value] of count) {
             keys.push(key);
@@ -90,29 +89,34 @@ class Worker extends React.Component {
         return text;
     }
   
-    fileSubmit(event) {
-        event.preventDefault();
-        let fr=new FileReader();
-        fr.onload=function(event){
-            document.getElementById('fileIn').textContent=event.target.result;
-            this.setState({value: event.target.result});
-            console.log(event.target.result);
-        }
-        fr.readAsText(event.target.files[0]);
-    }
+    // fileSubmit(event) {
+    //     event.preventDefault();
+    //     let fr=new FileReader();
+    //     fr.onload=function(event){
+    //         document.getElementById('fileIn').textContent=event.target.result;
+    //         this.setState({value: event.target.result});
+    //         console.log(event.target.result);
+    //     }
+    //     fr.readAsText(event.target.files[0]);
+    // }
 
-    // handleFileChosen = (file) => {
-    //     let fileReader = new FileReader();
-    //     fileReader.onloadend = handleFileRead(file);
-    //     fileReader.readAsText(file);
-    // };
+    handleFileChosen = async (file) => {
+        file.preventDefault();
+        const reader = new FileReader();
+        reader.onload = async (file) => {
+            const text = (file.target.result);
+            this.setState({original: text});
+            this.handleChange({target: {value: text}});
+        };
+        reader.readAsText(file.target.files[0]);
+    };
 
     render() {
         return (
             <h1>
                 <textarea className="App-input" id="textIn" value={this.state.original} onChange={this.handleChange} />
                 <textarea className="App-output" readOnly={true} value={this.state.modified} />
-                <input className="App-file-selector" type="file" id="fileIn" accept=".txt,.docx,.doc,.dot,.dotx" onChange={e => this.handleFileChosen(e.target.files[0])} />
+                <input className="App-file-selector" type="file" id="fileIn" accept=".txt" onChange={file => this.handleFileChosen(file)} />
                 <textarea className="App-counter" readOnly={true} disabled={true} value={this.countPrinter(this.state.labels, this.state.data)} />
                 <div className="App-pie">
                     <Pie data={{
