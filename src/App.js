@@ -3,6 +3,8 @@ import 'chart.js/auto';
 import React from "react";
 import {Chart} from 'chart.js'
 import {Pie} from 'react-chartjs-2';
+import Docxtemplater from "docxtemplater";
+import PizZip from "pizzip";
 
 function App() {
   return (
@@ -103,12 +105,24 @@ class Worker extends React.Component {
     handleFileChosen = async (file) => {
         file.preventDefault();
         const reader = new FileReader();
-        reader.onload = async (file) => {
-            const text = (file.target.result);
-            this.setState({original: text});
-            this.handleChange({target: {value: text}});
-        };
-        reader.readAsText(file.target.files[0]);
+        if (file.target.files[0].type === "text/plain") {
+            reader.onload = async (file) => {
+                const text = (file.target.result);
+                this.setState({original: text});
+                this.handleChange({target: {value: text}});
+            };
+            reader.readAsText(file.target.files[0]);
+        }
+        else {
+            reader.onload = async (file) => {
+                let zip = new PizZip(file.target.result);
+                let doc = new Docxtemplater().loadZip(zip)
+                let text = doc.getFullText();
+                this.setState({original: text});
+                this.handleChange({target: {value: text}});
+            };
+            reader.readAsBinaryString(file.target.files[0]);
+        }
     };
 
     render() {
@@ -116,7 +130,7 @@ class Worker extends React.Component {
             <h1>
                 <textarea className="App-input" id="textIn" value={this.state.original} onChange={this.handleChange} />
                 <textarea className="App-output" readOnly={true} value={this.state.modified} />
-                <input className="App-file-selector" type="file" id="fileIn" accept=".txt" onChange={file => this.handleFileChosen(file)} />
+                <input className="App-file-selector" type="file" accept=".txt,.docx,.dotx,.docm,.dotm" onChange={file => this.handleFileChosen(file)} />
                 <textarea className="App-counter" readOnly={true} disabled={true} value={this.countPrinter(this.state.labels, this.state.data)} />
                 <div className="App-pie">
                     <Pie data={{
