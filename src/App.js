@@ -53,7 +53,7 @@ class Worker extends React.Component {
 
     findPunctuation(str) {
         let text = "";
-        let reg = /[…[\].,/!?'"“”;:{}\-–—()]/g;
+        let reg = /[`_~@#$%^&*–\\+=<>|…[\].,/!?'";:{}\-—()]/g;
         if (str.match(reg) != null) {
             str.match(reg).forEach(function(x){text += (x === "“" || x === "”") ? "\"" : x;});
         }
