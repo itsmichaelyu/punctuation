@@ -75,6 +75,7 @@ textarea {
   resize: none;
 }
 
+/* makes GitHub logo work */
 .Filter {
   fill: white;
 }
