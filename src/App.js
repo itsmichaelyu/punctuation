@@ -89,17 +89,6 @@ class Worker extends React.Component {
         }
         return text;
     }
-  
-    // fileSubmit(event) {
-    //     event.preventDefault();
-    //     let fr=new FileReader();
-    //     fr.onload=function(event){
-    //         document.getElementById('fileIn').textContent=event.target.result;
-    //         this.setState({value: event.target.result});
-    //         console.log(event.target.result);
-    //     }
-    //     fr.readAsText(event.target.files[0]);
-    // }
 
     handleFileChosen = async (file) => {
         file.preventDefault();
