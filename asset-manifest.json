@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/punctuation/static/css/main.9d55df94.css",
-    "main.js": "/punctuation/static/js/main.5a127ab1.js",
+    "main.js": "/punctuation/static/js/main.ace4f575.js",
     "static/js/787.370914de.chunk.js": "/punctuation/static/js/787.370914de.chunk.js",
     "index.html": "/punctuation/index.html",
     "main.9d55df94.css.map": "/punctuation/static/css/main.9d55df94.css.map",
-    "main.5a127ab1.js.map": "/punctuation/static/js/main.5a127ab1.js.map",
+    "main.ace4f575.js.map": "/punctuation/static/js/main.ace4f575.js.map",
     "787.370914de.chunk.js.map": "/punctuation/static/js/787.370914de.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9d55df94.css",
-    "static/js/main.5a127ab1.js"
+    "static/js/main.ace4f575.js"
   ]
 }
