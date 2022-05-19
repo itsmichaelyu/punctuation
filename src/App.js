@@ -7,6 +7,24 @@ import Docxtemplater from "docxtemplater";
 import PizZip from "pizzip";
 import {Button, Stack, styled} from "@mui/material";
 
+/*
+Punctuation (or sometimes interpunction) is the use of spacing, conventional signs (called punctuation marks), 
+and certain typographical devices as aids to the understanding and correct reading of written text, whether read silently or aloud.[1] 
+Another description is, "It is the practice, action, or system of inserting points or other small marks into texts in order to aid
+interpretation; division of text into sentences, clauses, etc., by means of such marks."[2]
+
+In written English, punctuation is vital to disambiguate the meaning of sentences. 
+For example: "woman, without her man, is nothing" (emphasizing the importance of men to women), and "woman: without her, man is nothing"
+(emphasizing the importance of women to men) have very different meanings; as do "eats shoots and leaves" (which means the subject consumes plant growths)
+and "eats, shoots, and leaves" (which means the subject eats first, then fires a weapon, and then leaves the scene).[3] 
+The sharp differences in meaning are produced by the simple differences in punctuation within the example pairs, especially the latter.
+
+The rules of punctuation vary with language, location, register, and time and are constantly evolving. Certain aspects of punctuation are stylistic and
+are thus the author's (or editor's) choice, or tachygraphic (shorthand) language forms, such as those used in online chat and text messages. 
+
+Wikimedia Foundation. (2022, May 17). Punctuation. Wikipedia. Retrieved May 19, 2022, from https://en.wikipedia.org/wiki/Punctuation
+*/
+
 function App() {
   return (
     <div className="App">
