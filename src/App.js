@@ -5,6 +5,7 @@ import {Chart} from 'chart.js'
 import {Pie} from 'react-chartjs-2';
 import Docxtemplater from "docxtemplater";
 import PizZip from "pizzip";
+import {Button, styled} from "@mui/material";
 
 function App() {
   return (
@@ -25,6 +26,10 @@ function App() {
 }
 
 Chart.defaults.color = "#fff";
+
+const Input = styled('input')({
+    display: 'none',
+});
 
 class Worker extends React.Component {
     constructor(props) {
@@ -115,10 +120,15 @@ class Worker extends React.Component {
 
     render() {
         return (
-            <h1>
+            <h2>
                 <textarea className="App-input" id="textIn" value={this.state.original} onChange={this.handleChange} />
                 <textarea className="App-output" readOnly={true} value={this.state.modified} />
-                <input className="App-file-selector" type="file" accept=".txt,.docx,.dotx,.docm,.dotm" onChange={file => this.handleFileChosen(file)} />
+                <label className="App-file-selector" htmlFor="contained-button-file">
+                    <Input id="contained-button-file" multiple type="file" accept=".txt,.docx,.dotx,.docm,.dotm" onChange={file => this.handleFileChosen(file)} />
+                    <Button sx={{ mt: 1}} variant="contained" component="span">
+                        Upload
+                    </Button>
+                </label>
                 <textarea className="App-counter" readOnly={true} disabled={true} value={this.countPrinter(this.state.labels, this.state.data)} />
                 <div className="App-pie">
                     <Pie data={{
@@ -127,7 +137,7 @@ class Worker extends React.Component {
                     }}
                     />
                 </div>
-            </h1>
+            </h2>
         );
     }
 }
