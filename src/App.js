@@ -7,7 +7,6 @@ import Docxtemplater from "docxtemplater";
 import PizZip from "pizzip";
 import {Button, Stack, styled} from "@mui/material";
 import { HighlightWithinTextarea } from 'react-highlight-within-textarea';
-import { useState } from 'react';
 
 /*
 Punctuation (or sometimes interpunction) is the use of spacing, conventional signs (called punctuation marks), 
