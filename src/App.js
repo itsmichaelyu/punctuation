@@ -6,7 +6,7 @@ import {Pie} from 'react-chartjs-2';
 import Docxtemplater from "docxtemplater";
 import PizZip from "pizzip";
 import {Button, Stack, styled} from "@mui/material";
-import { HighlightWithinTextarea } from 'react-highlight-within-textarea';
+// import { HighlightWithinTextarea } from 'react-highlight-within-textarea';
 
 /*
 Punctuation (or sometimes interpunction) is the use of spacing, conventional signs (called punctuation marks), 
@@ -70,6 +70,7 @@ class Worker extends React.Component {
     }
 
     handleChange(event) {
+        console.log("pain");
         this.setState({original: event.target.value});
         this.setState({modified: this.findPunctuation(event.target.value)})
         this.updateChart(this.findPunctuation(event.target.value));
@@ -151,8 +152,9 @@ class Worker extends React.Component {
                     <Button variant={this.state.disabled === 1 ? "contained" :  "outlined"} onClick={() => this.buttonFunc(1)}>Pure</Button>
                     <Button variant={this.state.disabled === 2 ? "contained" :  "outlined"} onClick={() => this.buttonFunc(2)}>All</Button>
                 </Stack>
-                <h2><span id="space">Input</span><span id="space">Output</span></h2>
-                <HighlightWithinTextarea className="App-input" id="textIn" value={this.state.original} onChange={this.handleChange} highlight={/[`_~@#$%^&*–\\+=<>|…[\].,/!?'"“”;:{}\-—()]/g}/>
+                <h1><span id="space">Input</span><span id="space">Output</span></h1>
+                {/*<HighlightWithinTextarea className="App-input" value={this.state.original} onChange={this.handleChange} highlight={/[`_~@#$%^&*–\\+=<>|…[\].,/!?'"“”;:{}\-—()]/g}/>*/}
+                <textarea className="App-input" value={this.state.original} onChange={this.handleChange} highlight={/[`_~@#$%^&*–\\+=<>|…[\].,/!?'"“”;:{}\-—()]/g}/>
                 <textarea className="App-output" readOnly={true} value={this.state.modified} />
                 <label className="App-file-selector" htmlFor="contained-button-file">
                     <Input id="contained-button-file" multiple type="file" accept=".txt,.docx,.dotx,.docm,.dotm" onChange={file => this.handleFileChosen(file)} />
