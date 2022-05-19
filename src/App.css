@@ -8,7 +8,7 @@
 }
 
 .App-title-text {
-  margin: 0 50px 0 0;
+  margin: 0 0 0 120px;
   min-height: 100vh;
   text-align: center;
   font-size: calc(25px + 1vmin);
@@ -55,6 +55,10 @@
   margin: 10px 0 0 50px;
 }
 
+.App-button-stack{
+  float: right;
+}
+
 .App-pie{
   float: left;
   margin: 70px 0 0 8vw;
@@ -62,13 +66,13 @@
   width: 35vw;
 }
 
-h1, h2{
+h2{
   text-align: center;
   font-size: calc(12px + 1vmin);
 }
 
 #space {
-  padding: 0 20% 0 20%;
+  padding: 0 20% 0 22%;
 }
 
 textarea {

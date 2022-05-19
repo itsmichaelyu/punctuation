@@ -5,7 +5,7 @@ import {Chart} from 'chart.js'
 import {Pie} from 'react-chartjs-2';
 import Docxtemplater from "docxtemplater";
 import PizZip from "pizzip";
-import {Button, styled} from "@mui/material";
+import {Button, Stack, styled} from "@mui/material";
 
 function App() {
   return (
@@ -18,7 +18,6 @@ function App() {
         </a>
       <header className="App-header">
           <span className="App-title-text">Punctuation Only</span>
-          <h1><span id="space">Input</span><span id="space">Output</span></h1>
           <Worker></Worker>
       </header>
     </div>
@@ -37,6 +36,7 @@ class Worker extends React.Component {
         this.state = {
             original: '',
             modified: '',
+            disabled: 1,
             labels: [],
             data: [],
             datasets: [{
@@ -58,7 +58,9 @@ class Worker extends React.Component {
 
     findPunctuation(str) {
         let text = "";
-        let reg = /[`_~@#$%^&*–\\+=<>|…[\].,/!?'"“”;:{}\-—()]/g;
+        let regPure = /[…[\].,/!?'"“”;:{}\-–—()]/g;
+        let regAll = /[`_~@#$%^&*–\\+=<>|…[\].,/!?'"“”;:{}\-—()]/g;
+        let reg = this.state.disabled === 1 ? regPure : regAll;
         if (str.match(reg) != null) {
             str.match(reg).forEach(function(x){text += (x === "“" || x === "”") ? "\"" : x;});
         }
@@ -118,9 +120,19 @@ class Worker extends React.Component {
         }
     };
 
+    async buttonFunc(num) {
+        await this.setState({disabled: num});
+        this.handleChange({target: {value: this.state.original}});
+    };
+
     render() {
         return (
-            <h2>
+            <span>
+                <Stack sx={{mr:7}} className="App-button-stack" direction="row" alignItems="center" spacing={1}>
+                    <Button variant={this.state.disabled === 1 ? "contained" :  "outlined"} onClick={() => this.buttonFunc(1)}>Pure</Button>
+                    <Button variant={this.state.disabled === 2 ? "contained" :  "outlined"} onClick={() => this.buttonFunc(2)}>All</Button>
+                </Stack>
+                <h2><span id="space">Input</span><span id="space">Output</span></h2>
                 <textarea className="App-input" id="textIn" value={this.state.original} onChange={this.handleChange} />
                 <textarea className="App-output" readOnly={true} value={this.state.modified} />
                 <label className="App-file-selector" htmlFor="contained-button-file">
@@ -137,7 +149,7 @@ class Worker extends React.Component {
                     }}
                     />
                 </div>
-            </h2>
+            </span>
         );
     }
 }
