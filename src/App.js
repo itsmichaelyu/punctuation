@@ -6,7 +6,7 @@ import {Pie} from 'react-chartjs-2';
 import Docxtemplater from "docxtemplater";
 import PizZip from "pizzip";
 import {Button, Stack, styled} from "@mui/material";
-// import { HighlightWithinTextarea } from 'react-highlight-within-textarea';
+import { HighlightWithinTextarea } from 'react-highlight-within-textarea';
 
 /*
 Punctuation (or sometimes interpunction) is the use of spacing, conventional signs (called punctuation marks), 
@@ -56,6 +56,7 @@ class Worker extends React.Component {
             original: '',
             modified: '',
             disabled: 1,
+            reg: '',
             labels: [],
             data: [],
             datasets: [{
@@ -69,20 +70,25 @@ class Worker extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    handleChange(event) {
-        console.log("pain");
+    async handleChange(event) {
         this.setState({original: event.target.value});
-        this.setState({modified: this.findPunctuation(event.target.value)})
+        await this.updateRegex();
+        this.setState({modified: this.findPunctuation(event.target.value)});
         this.updateChart(this.findPunctuation(event.target.value));
+    }
+
+    updateRegex() {
+        let regPure = /[…[\].,/!?'"“”;:{}\-–—()]/g;
+        let regAll = /[`_~@#$%^&*–\\+=<>|…[\].,/!?'"“”;:{}\-—()]/g;
+        this.setState({reg: (this.state.disabled === 1 ? regPure : regAll)});
     }
 
     findPunctuation(str) {
         let text = "";
-        let regPure = /[…[\].,/!?'"“”;:{}\-–—()]/g;
-        let regAll = /[`_~@#$%^&*–\\+=<>|…[\].,/!?'"“”;:{}\-—()]/g;
-        let reg = this.state.disabled === 1 ? regPure : regAll;
-        if (str.match(reg) != null) {
-            str.match(reg).forEach(function(x){text += (x === "“" || x === "”") ? "\"" : x;});
+        if (str.match(this.state.reg) != null) {
+            str.match(this.state.reg).forEach(function (x) {
+                text += (x === "“" || x === "”") ? "\"" : x;
+            });
         }
         return text;
     }
@@ -153,8 +159,8 @@ class Worker extends React.Component {
                     <Button variant={this.state.disabled === 2 ? "contained" :  "outlined"} onClick={() => this.buttonFunc(2)}>All</Button>
                 </Stack>
                 <h1><span id="space">Input</span><span id="space">Output</span></h1>
-                {/*<HighlightWithinTextarea className="App-input" value={this.state.original} onChange={this.handleChange} highlight={/[`_~@#$%^&*–\\+=<>|…[\].,/!?'"“”;:{}\-—()]/g}/>*/}
-                <textarea className="App-input" value={this.state.original} onChange={this.handleChange} highlight={/[`_~@#$%^&*–\\+=<>|…[\].,/!?'"“”;:{}\-—()]/g}/>
+                {/*<HighlightWithinTextarea className="App-input" value={this.state.original} onChange={(e) => this.handleChange({target: {value: e}})} highlight={this.state.reg} />*/}
+                <textarea className="App-input" value={this.state.original} onChange={this.handleChange} />
                 <textarea className="App-output" readOnly={true} value={this.state.modified} />
                 <label className="App-file-selector" htmlFor="contained-button-file">
                     <Input id="contained-button-file" multiple type="file" accept=".txt,.docx,.dotx,.docm,.dotm" onChange={file => this.handleFileChosen(file)} />

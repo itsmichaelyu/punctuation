@@ -30,6 +30,7 @@
   height: 80vh;
   font-size: calc(6px + 2vmin);
   color: black;
+  border: black;
 }
 
 .App-output {
