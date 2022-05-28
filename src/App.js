@@ -159,7 +159,9 @@ class Worker extends React.Component {
                     <Button variant={this.state.disabled === 2 ? "contained" :  "outlined"} onClick={() => this.buttonFunc(2)}>All</Button>
                 </Stack>
                 <h1><span id="space">Input</span><span id="space">Output</span></h1>
-                {/*<HighlightWithinTextarea className="App-input" value={this.state.original} onChange={(e) => this.handleChange({target: {value: e}})} highlight={this.state.reg} />*/}
+                {/*<div className="App-highlight">*/}
+                {/*    <HighlightWithinTextarea className="App-input" value={this.state.original} onChange={(e) => this.handleChange({target: {value: e}})} highlight={this.state.reg} />*/}
+                {/*</div>*/}
                 <textarea className="App-input" value={this.state.original} onChange={this.handleChange} />
                 <textarea className="App-output" readOnly={true} value={this.state.modified} />
                 <label className="App-file-selector" htmlFor="contained-button-file">

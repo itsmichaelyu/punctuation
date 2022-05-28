@@ -26,11 +26,20 @@
 .App-input {
   text-align: left;
   margin: 0 5px 0 0;
+  font-size: calc(6px + 2vmin);
   width: 45vw;
   height: 80vh;
-  font-size: calc(6px + 2vmin);
-  color: black;
-  border: black;
+  color: black !important;
+}
+
+.App-highlight {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  width: 45vw;
+  height: 80vh;
+  border: 1pt solid dimgrey;
+  background: black;
+  overflow: scroll;
 }
 
 .App-output {
