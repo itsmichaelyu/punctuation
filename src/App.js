@@ -6,7 +6,6 @@ import {Pie} from 'react-chartjs-2';
 import Docxtemplater from "docxtemplater";
 import PizZip from "pizzip";
 import {Button, Stack, styled} from "@mui/material";
-import { HighlightWithinTextarea } from 'react-highlight-within-textarea';
 
 /*
 Punctuation (or sometimes interpunction) is the use of spacing, conventional signs (called punctuation marks), 
@@ -159,9 +158,6 @@ class Worker extends React.Component {
                     <Button variant={this.state.disabled === 2 ? "contained" :  "outlined"} onClick={() => this.buttonFunc(2)}>All</Button>
                 </Stack>
                 <h1><span id="space">Input</span><span id="space">Output</span></h1>
-                {/*<div className="App-highlight">*/}
-                {/*    <HighlightWithinTextarea className="App-input" value={this.state.original} onChange={(e) => this.handleChange({target: {value: e}})} highlight={this.state.reg} />*/}
-                {/*</div>*/}
                 <textarea className="App-input" value={this.state.original} onChange={this.handleChange} />
                 <textarea className="App-output" readOnly={true} value={this.state.modified} />
                 <label className="App-file-selector" htmlFor="contained-button-file">
