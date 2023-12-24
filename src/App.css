@@ -24,12 +24,15 @@
 }
 
 .App-input {
+  background: #0f1011;
+  border: none;
+  outline: none;
   text-align: left;
   margin: 0 5px 0 0;
   font-size: calc(6px + 2vmin);
   width: 45vw;
   height: 80vh;
-  color: black !important;
+  color: white !important;
 }
 
 .App-highlight {
@@ -43,12 +46,15 @@
 }
 
 .App-output {
+  background: #0f1011;
+  border: none;
+  outline: none;
   text-align: left;
   margin: 0 0 0 5px;
   width: 45vw;
   height: 80vh;
   font-size: calc(6px + 2vmin);
-  color: black;
+  color: white;
 }
 
 .App-counter {
